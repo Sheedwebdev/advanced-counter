@@ -2,32 +2,18 @@ import React  from 'react';
 import styled from 'styled-components';
 
   function Counter() {
-    const [count, setCount] = React.useState(0);
-
-    const smallIncrement = function() {
-      setCount(count + 1);
-    }
     
-    const smallDecrement = function() {
-      setCount(count - 1);
-    }
-    
-    const largeIncrement = function() {
-      setCount(count + 10);
-    }
-    
-    const largeDecrement = function() {
-      setCount(count - 10);
-    }
-
-    const reset = function() {
-      setCount(0);
-    }
-    
-    const randomNum = function() {
-      setCount(Math.floor(Math.random() * 100) + 1);
-    }
-    
+    const {
+      count, 
+      smallDecrement,
+      smallIncrement,
+      largeDecrement,
+      largeIncrement,
+      timesTwo,
+      dividedByTwo,
+      reset,
+      randomNum
+    } = useCalculator();
 
     return (
       <>
@@ -47,6 +33,12 @@ import styled from 'styled-components';
               <Button onClick={largeDecrement}>
                 Minus 10
               </Button>
+              <Button onClick={timesTwo}>
+                * 2
+              </Button>
+              <Button onClick={dividedByTwo}>
+                / 2
+              </Button>
               <Button onClick={randomNum}>
                 Random 
               </Button>
@@ -58,6 +50,37 @@ import styled from 'styled-components';
         </Wrapper>
       </>
     );
+  }
+
+  function useCalculator() {
+    const [count, setCount] = React.useState(0);
+
+    const smallIncrement = () => setCount((c) => c + 1);
+    const smallDecrement = () => setCount((c) => c - 1);
+    const largeIncrement = () => setCount((c) => c + 10);
+    const largeDecrement = () => setCount((c) => c - 10);
+    const timesTwo = () => setCount((c) => c * 2);
+    const dividedByTwo = () => setCount((c) => c / 2);
+   
+    const reset = function() {
+      setCount(0);
+    }
+    
+    const randomNum = function() {
+      setCount(Math.floor(Math.random() * 100) + 1);
+    }
+
+    return {
+      count, 
+      smallDecrement,
+      smallIncrement,
+      largeDecrement,
+      largeIncrement,
+      timesTwo,
+      dividedByTwo,
+      reset,
+      randomNum
+    }
   }
 
   const CountUpdate = styled.p`
@@ -87,7 +110,7 @@ import styled from 'styled-components';
   const ButtonContainer  = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
     align-items: center;
   `;
